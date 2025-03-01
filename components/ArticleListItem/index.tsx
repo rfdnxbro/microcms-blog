@@ -35,10 +35,10 @@ export default function ArticleListItem({ article }: Props) {
         ) : (
           <Image
             className={styles.image}
-            src="/no-image.png"
+            src="/no-image.jpg"
             alt="No Image"
             width={1200}
-            height={630}
+            height={656}
           />
         )}
         <dl className={styles.content}>

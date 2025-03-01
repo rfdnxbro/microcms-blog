@@ -13,7 +13,7 @@ export const metadata = {
   openGraph: {
     title: 'ryu\'s Blog',
     description: 'Webエンジニアとして働く福田のブログです',
-    images: '/ogp.png',
+    images: '/ogp.jpg',
   },
   alternates: {
     canonical: '/',
