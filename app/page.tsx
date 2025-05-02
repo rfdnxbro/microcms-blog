@@ -7,13 +7,16 @@ import { Metadata } from 'next';
 export const revalidate = 60;
 
 export const metadata = {
-  metadataBase: new URL(process.env.BASE_URL || 'http://localhost:3000'),
-  title: 'ryu\'s Blog',
-  description: 'Webエンジニアとして働く福田のブログです',
+  title: 'ryu\'s Blog - ホーム',
+  description: 'Webエンジニアとして働く福田のブログです。最新の技術情報や開発に関する記事を公開しています。',
   openGraph: {
     title: 'ryu\'s Blog',
-    description: 'Webエンジニアとして働く福田のブログです',
-    images: '/ogp.jpg',
+    description: 'Webエンジニアとして働く福田のブログです。最新の技術情報や開発に関する記事を公開しています。',
+    url: '/',
+  },
+  twitter: {
+    title: 'ryu\'s Blog',
+    description: 'Webエンジニアとして働く福田のブログです。最新の技術情報や開発に関する記事を公開しています。',
   },
   alternates: {
     canonical: '/',
