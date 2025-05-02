@@ -13,7 +13,7 @@ export const metadata = {
   openGraph: {
     title: 'ryu\'s Blog',
     description: 'Webエンジニアとして働く福田のブログです',
-    images: '/ogp.jpg',
+    images: 'https://www.ryu-fukuda.com/ogp.jpg',
     type: 'website',
     siteName: 'ryu\'s Blog',
     locale: 'ja_JP',
@@ -22,7 +22,7 @@ export const metadata = {
     card: 'summary_large_image',
     title: 'ryu\'s Blog',
     description: 'Webエンジニアとして働く福田のブログです',
-    images: '/ogp.jpg',
+    images: 'https://www.ryu-fukuda.com/ogp.jpg',
     creator: '@ryu',
   },
   alternates: {
