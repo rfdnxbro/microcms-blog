@@ -14,6 +14,16 @@ export const metadata = {
     title: 'ryu\'s Blog',
     description: 'Webエンジニアとして働く福田のブログです',
     images: '/ogp.jpg',
+    type: 'website',
+    siteName: 'ryu\'s Blog',
+    locale: 'ja_JP',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'ryu\'s Blog',
+    description: 'Webエンジニアとして働く福田のブログです',
+    images: '/ogp.jpg',
+    creator: '@ryu',
   },
   alternates: {
     canonical: '/',
