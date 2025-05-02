@@ -13,7 +13,7 @@ export const metadata = {
     title: 'ryu\'s Blog',
     description: 'Webエンジニアとして働く福田のブログです。最新の技術情報や開発に関する記事を公開しています。',
     url: '/',
-    images: 'https://www.ryu-fukuda.com/ogp.jpg',
+    images: '/ogp.jpg',
   },
   twitter: {
     title: 'ryu\'s Blog',
