@@ -1,17 +1,14 @@
-import { format } from 'date-fns';
-import { utcToZonedTime } from 'date-fns-tz';
-import cheerio from 'cheerio';
+import { formatInTimeZone } from 'date-fns-tz';
+import { load } from 'cheerio';
 import hljs from 'highlight.js';
 import 'highlight.js/styles/hybrid.css';
 
 export const formatDate = (date: string) => {
-  const utcDate = new Date(date);
-  const jstDate = utcToZonedTime(utcDate, 'Asia/Tokyo');
-  return format(jstDate, 'yyyy/M/d');
+  return formatInTimeZone(new Date(date), 'Asia/Tokyo', 'yyyy/M/d');
 };
 
 export const formatRichText = (richText: string) => {
-  const $ = cheerio.load(richText);
+  const $ = load(richText, null, false);
   const highlight = (text: string, lang?: string) => {
     if (!lang) return hljs.highlightAuto(text);
     try {
