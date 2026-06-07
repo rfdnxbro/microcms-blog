@@ -1,0 +1,25 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended", ":dependencyDashboard", ":semanticCommits"],
+  "timezone": "Asia/Tokyo",
+  "schedule": ["before 9am on monday"],
+  "labels": ["dependencies"],
+  "packageRules": [
+    {
+      "description": "patch / minor はまとめて 1 PR にし、CI 通過後に自動マージ",
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "non-major dependencies",
+      "automerge": true
+    },
+    {
+      "description": "major は個別 PR・手動レビュー（破壊的変更を伴うため自動マージしない）",
+      "matchUpdateTypes": ["major"],
+      "automerge": false,
+      "addLabels": ["major"]
+    }
+  ],
+  "lockFileMaintenance": {
+    "enabled": true,
+    "automerge": true
+  }
+}
