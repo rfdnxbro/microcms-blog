@@ -7,6 +7,7 @@ type Props = {
   searchParams: Promise<{ dk: string }>;
 };
 
+// Next.js が静的解析するためリテラル必須（constants/cache.ts: REVALIDATE_SECONDS と同期）
 export const revalidate = 60;
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
