@@ -8,7 +8,7 @@ const nextConfig: NextConfig = {
         // 静的アセット(_next/static, _next/image, favicon.ico)は除外する。
         // これらは Next.js が immutable な長期キャッシュを付与するため、
         // s-maxage=60 の CDN-Cache-Control で上書きしない。
-        source: '/((?!_next/static|_next/image|favicon.ico).*)',
+        source: '/((?!_next/static|_next/image|favicon\\.ico).*)',
         headers: [
           {
             key: 'CDN-Cache-Control',
