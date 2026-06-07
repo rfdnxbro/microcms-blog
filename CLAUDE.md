@@ -31,5 +31,5 @@ microCMS をバックエンドに持つ Next.js App Router 構成。
 - **proxy.ts**: `?dk=` パラメータ付きリクエストはキャッシュ無効化（ドラフトプレビュー用）。Next.js 16 で `middleware.ts` は `proxy.ts` にリネーム（関数名も `proxy`）
 - **ESLint**: flat config (`eslint.config.mjs`) を使用。`next lint` は Next.js 16 で削除されたため lint スクリプトは `eslint .`。`eslint-config-next@16` は flat config 専用で `.eslintrc.*` は不可。ESLint は 9.x 系を使う（10.x は `eslint-plugin-react` が非互換でクラッシュする）
 - **revalidate はリテラル必須**: ページの `export const revalidate` は Next.js の静的解析の制約でリテラル値が必須。`constants/cache.ts` の `REVALIDATE_SECONDS` を import すると `next build` が失敗するため、値は手動で同期する
-- **キャッシュTTL**: 60秒は `constants/cache.ts` が source of truth。`proxy.ts` / `next.config.ts` はそこから import する
+- **キャッシュTTL**: CDN-Cache-Control 文字列は `constants/cache.ts` が source of truth（`proxy.ts` / `next.config.ts` が import）。ただしページの `revalidate` リテラルは静的解析の制約で import できないため、`REVALIDATE_SECONDS` を変えたら7ファイルのリテラルも手動で合わせる（機械的な連動はない）
 - **postcss override**: `next@16` が脆弱な `postcss@8.4.31` を要求するため `package.json` の `overrides` で `^8.5.15` に固定。next がバンドルする postcss が `>=8.5.10` になったら削除可
