@@ -4,6 +4,7 @@ import Pagination from '@/components/Pagination';
 import ArticleList from '@/components/ArticleList';
 import { Metadata } from 'next';
 
+// Next.js が静的解析するためリテラル必須（constants/cache.ts: REVALIDATE_SECONDS と同期）
 export const revalidate = 60;
 
 export const metadata = {
