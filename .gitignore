@@ -35,3 +35,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# claude code (local-only artifacts)
+.claude/settings.local.json
+.claude/scheduled_tasks.lock
