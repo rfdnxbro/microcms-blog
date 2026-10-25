@@ -1,25 +1,50 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:recommended", ":dependencyDashboard", ":semanticCommits"],
+  "extends": [
+    "config:recommended",
+    ":dependencyDashboard",
+    ":semanticCommits",
+    ":semanticCommitTypeAll(chore)"
+  ],
   "timezone": "Asia/Tokyo",
   "schedule": ["before 9am on monday"],
   "labels": ["dependencies"],
-  "packageRules": [
-    {
-      "description": "patch / minor はまとめて 1 PR にし、CI 通過後に自動マージ",
-      "matchUpdateTypes": ["minor", "patch"],
-      "groupName": "non-major dependencies",
-      "automerge": true
-    },
-    {
-      "description": "major は個別 PR・手動レビュー（破壊的変更を伴うため自動マージしない）",
-      "matchUpdateTypes": ["major"],
-      "automerge": false,
-      "addLabels": ["major"]
-    }
-  ],
+  "dependencyDashboardTitle": "Dependency Dashboard",
+  "dependencyDashboardOSVVulnerabilitySummary": "all",
+  "rangeStrategy": "bump",
+  "platformAutomerge": true,
+  "automergeType": "pr",
+  "automergeStrategy": "squash",
+  "prConcurrentLimit": 5,
   "lockFileMaintenance": {
     "enabled": true,
-    "automerge": true
-  }
+    "schedule": ["before 9am on monday"],
+    "automerge": true,
+    "platformAutomerge": true,
+    "labels": ["dependencies"]
+  },
+  "packageRules": [
+    {
+      "description": "patch/minor（dependencies / devDependencies）は週次でまとめ、CI 通過後に platform automerge",
+      "matchUpdateTypes": ["patch", "minor"],
+      "matchDepTypes": ["dependencies", "devDependencies", "optionalDependencies"],
+      "groupName": "non-major dependencies",
+      "automerge": true,
+      "platformAutomerge": true
+    },
+    {
+      "description": "GitHub Actions の patch/minor も同様にまとめ自動マージ",
+      "matchManagers": ["github-actions"],
+      "matchUpdateTypes": ["patch", "minor"],
+      "groupName": "github-actions",
+      "automerge": true,
+      "platformAutomerge": true
+    },
+    {
+      "description": "major は自動マージしない。dependencies + needs-review で手動確認",
+      "matchUpdateTypes": ["major"],
+      "automerge": false,
+      "addLabels": ["needs-review"]
+    }
+  ]
 }
