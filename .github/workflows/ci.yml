@@ -5,18 +5,52 @@ on:
   push:
     branches: [main]
 
+# Required status check name for branch protection: "verify"
 jobs:
-  check:
-    name: lint & typecheck
+  verify:
+    name: verify
     runs-on: ubuntu-latest
+    env:
+      # Production build fetches microCMS at build time (ISR pages).
+      # Owner must add these as repository Actions secrets (Settings → Secrets and variables → Actions).
+      MICROCMS_API_KEY: ${{ secrets.MICROCMS_API_KEY }}
+      MICROCMS_SERVICE_DOMAIN: ${{ secrets.MICROCMS_SERVICE_DOMAIN }}
+      BASE_URL: ${{ secrets.BASE_URL }}
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
+
       - run: npm ci
+
       - name: Lint (ESLint)
         run: npm run lint
+
       - name: Type check (tsc)
         run: npx tsc --noEmit
+
+      - name: Check build secrets
+        run: |
+          missing=0
+          if [ -z "${MICROCMS_API_KEY}" ]; then
+            echo "::error title=Missing secret::Add repository secret MICROCMS_API_KEY (microCMS API key)."
+            missing=1
+          fi
+          if [ -z "${MICROCMS_SERVICE_DOMAIN}" ]; then
+            echo "::error title=Missing secret::Add repository secret MICROCMS_SERVICE_DOMAIN (microCMS service domain)."
+            missing=1
+          fi
+          if [ -z "${BASE_URL}" ]; then
+            echo "::error title=Missing secret::Add repository secret BASE_URL (canonical site URL, e.g. https://example.vercel.app)."
+            missing=1
+          fi
+          if [ "$missing" -ne 0 ]; then
+            echo "See PR / README notes: CI runs a production \`next build\`, which requires the same env vars as Vercel."
+            exit 1
+          fi
+
+      - name: Production build
+        run: npm run build
