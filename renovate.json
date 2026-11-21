@@ -25,12 +25,22 @@
   },
   "packageRules": [
     {
-      "description": "patch/minor（dependencies / devDependencies）は週次でまとめ、CI 通過後に platform automerge",
+      "description": "patch/minor（dependencies / devDependencies / overrides）は週次でまとめ、CI 通過後に platform automerge。本番実行時に影響しうる overrides（undici / zod / nanoid）は除外",
       "matchUpdateTypes": ["patch", "minor"],
-      "matchDepTypes": ["dependencies", "devDependencies", "optionalDependencies"],
+      "matchDepTypes": ["dependencies", "devDependencies", "optionalDependencies", "overrides"],
+      "matchPackageNames": ["!undici", "!zod", "!nanoid"],
       "groupName": "non-major dependencies",
       "automerge": true,
       "platformAutomerge": true
+    },
+    {
+      "description": "本番実行時に影響しうる overrides（undici / zod / nanoid）は patch/minor でも手動レビュー",
+      "matchDepTypes": ["overrides"],
+      "matchPackageNames": ["undici", "zod", "nanoid"],
+      "matchUpdateTypes": ["patch", "minor"],
+      "automerge": false,
+      "platformAutomerge": false,
+      "addLabels": ["needs-review"]
     },
     {
       "description": "GitHub Actions の patch/minor も同様にまとめ自動マージ",
